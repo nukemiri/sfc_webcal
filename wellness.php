@@ -46,6 +46,7 @@
                     <td>
                         <input id="copy" type="submit" name="copy" value="URLをコピー">
                         <input id="add" type="submit" name="add" value="システムカレンダーに追加">
+                        <input id="addg" type="submit" name="addg" value="Googleカレンダーに追加">
                         <input id="dl" type="submit" name="dl" value="ics形式でダウンロード">
                     </td>
                 </tr>
@@ -66,11 +67,17 @@
                     document.getElementById("webcal").value = url;
                 };
                 document.getElementById("copy").onclick = function() {
-                    navigator.clipboard.writeText(document.getElementById("webcal").value);
-                    alert("URLをクリップボードにコピーしました");
+                    navigator.clipboard.writeText(String(document.getElementById("webcal").value))
+                        .then(
+                        success => alert("テキストのコピーに成功"),
+                        error => alert("テキストのコピーに失敗")
+                        );
                 };
                 document.getElementById("add").onclick = function() {
                     window.open(document.getElementById("webcal").value);
+                };
+                document.getElementById("addg").onclick = function() {
+                    window.open("https://www.google.com/calendar/render?cid="+String(document.getElementById("webcal").value).replace("&","%26"));
                 };
                 document.getElementById("dl").onclick = function() {
                     window.open(document.getElementById("webcal").value.replace("webcal","http"));
