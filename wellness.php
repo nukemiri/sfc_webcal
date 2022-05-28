@@ -43,7 +43,7 @@
                     <td>
                         <input id="webcal" type="text" name="webcal" value="" placeholder="発行ボタンをクリック" readonly>
                     </td>
-                    <td>
+                    <td id="buttons" style="display:none;">
                         <input id="copy" type="submit" name="copy" value="URLをコピー">
                         <input id="add" type="submit" name="add" value="システムカレンダーに追加">
                         <input id="addg" type="submit" name="addg" value="Googleカレンダーに追加">
@@ -56,6 +56,7 @@
             <a href="https://github.com/nukemiri/sfc_webcal" target="_blank">Github</a>
             <script type="text/javascript">
                 document.getElementById("submit").onclick = function() {
+                    document.getElementById("buttons").style.display ="block";
                     let url = location.href;
                     if (location.search=="") {
                         url += "?studentid="+document.getElementById("cnsid").value+"&password="+document.getElementById("cnspass").value;
@@ -65,6 +66,7 @@
                     url = url.replace(location.hash , "");
                     url = url.replace(location.protocol , "webcal:");
                     document.getElementById("webcal").value = url;
+
                 };
                 document.getElementById("copy").onclick = function() {
                     navigator.clipboard.writeText(String(document.getElementById("webcal").value))
